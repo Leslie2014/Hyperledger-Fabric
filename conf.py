@@ -24,7 +24,7 @@ source_parsers = {
     '.md': CommonMarkParser,
 }
 
-project = 'Hyperledger Fabric 中文文档'
+project = 'Hyperledger Fabric chinese Documention'
 copyright = '2018, Leslie'
 author = 'Leslie'
 
