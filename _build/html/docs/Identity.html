@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>身份系统 Identity &mdash; Hyperledger Fabric 中文文档  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Hyperledger Fabric 中文文档  documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Hyperledger Fabric 中文文档
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="KeyConcept.html">核心概念</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Fabric 介绍</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hyperledger Fabric 中文文档</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>身份系统 Identity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/docs/Identity.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="identity">
+<span id="identity"></span><h1>身份系统 Identity<a class="headerlink" href="#identity" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="">
+<span id="id1"></span><h2>什么是身份系统<a class="headerlink" href="#" title="Permalink to this headline">¶</a></h2>
+<p>区块链网络中的角色包括对等节点（peer），订购着，客户端应用程序，管理员等等。这些参与者的身份都封装在X.509数字证书中。这些身份信息真的非常重要，因为他们决定了在网络中参与者具体的权限。 Hyperledger Fabric 在身份中使用 principal 属性来决定他们的相关权限。principal 就像用户 ID 或组 ID 一样，但又更灵活一点，因为他们可以包含更多的参与者身份属性。当我们提到 principal 的时候，其实也就是讲到了系统里参与者身份属性的权限。这些属性通常是参与者的组织单位，组织单元，角色或参与者的特定身份。</p>
+<p>更重要的，一个身份必须要是可验证的（也就是说得是真实的身份），因此，身份授权必须来自于最受信赖的系统了。Hyperledger Fabric 中的会员服务提供者（ membership service provider 下文简称MSP）干的就是这个活儿。进一步来说，MSP 代表着组织中决定成员规则的组件，就这样，它管理着组织中成员有效的身份。Fabric 中默认的 MSP 实现使用 X.509 证书作为身份，并采用传统的公钥基础结构（PKI）分层模型。</p>
+</div>
+<div class="section" id="">
+<span id="id2"></span><h2>一个简单的场景来描述身份系统<a class="headerlink" href="#" title="Permalink to this headline">¶</a></h2>
+<p>假设你去超市买些杂货，在结账时你注意到商家只支持银联付款。如果你使用支付宝付款，那将不被接受，尽管你的支付宝里有钱并且实名认证过了。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.6.png" /></p>
+<p>所以，有一个有效的支付方式（如支付宝）并不够，它必须要被商家所接受！PKI 和 MSP 在一起就代表着这种场景，PKI 提供了一系列的身份（银联、万事达、微信、支付宝等等），MSP 决定哪些才是参与网络组织的成员（那种支付能被接受）。</p>
+<p>PKI 证书颁发机构和 MSP 提供了相似功能的结合。PKI 就像一个名片提供者 — 它颁发许多不同类型的可验证身份。另一方面，MSP 就像商店接受的银行卡提供商列表 — 决定了商店支付网络中哪些参与者（支付方式）是被信任的。<strong>MSP 将可验证身份转变为区块链网络的成员</strong>。</p>
+<p>让我们深入了解下这些概念吧。</p>
+</div>
+<div class="section" id="pkis">
+<span id="pkis"></span><h2>什么是 PKIs?<a class="headerlink" href="#pkis" title="Permalink to this headline">¶</a></h2>
+<p>公钥基础设施（PKI）是一组提供网络安全通信的互联网技术。是 PKI 才有了 HTTPS 中的S - 如果您在Web浏览器上阅读本文档，则可能已经使用了 PKI 来确保它来自可靠源。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.7.png" /></p>
+<p>*公钥基础设施（PKI）的要素。PKI 由证书颁发机构组成，证书颁发机构向各方（例如，服务的用户，服务提供商）颁发数字证书，然后使用这些证书在他们与其环境交换的消息中对自己进行身份验证。CA 的证书废弃列表（CRL）包含着各种无效证书。证书被废弃的原因可能有多种，例如，与证书关联的私人密码资料已被暴露。</p>
+<p>区块链网络不仅仅是一个通信网络，它依赖于 PKI 标准来确保各个网络参与者之间的安全通信，并确保发布在区块链上的消息得到正确的验证。因此，了解 PKI 的基础知识以及 MSP 将会非常重要。</p>
+<p>PKI有四个关键要素：</p>
+<ul class="simple">
+<li>数字证书</li>
+<li>公匙跟阴匙</li>
+<li>证书颁发机构</li>
+<li>废弃证书列表</li>
+</ul>
+<p>让我们来快速了解下 PKI 的基础吧，如果你想了解更多这块的知识，<a class="reference external" href="https://en.wikipedia.org/wiki/Public_key_infrastructure">维基百科</a> 将会是个不错的选择。</p>
+</div>
+<div class="section" id="digital-certificates">
+<span id="digital-certificates"></span><h2>数字证书（Digital Certificates）<a class="headerlink" href="#digital-certificates" title="Permalink to this headline">¶</a></h2>
+<p>数字证书是包含一堆与当事人相关的属性文档。最常用的证书是符合 <a class="reference external" href="https://en.wikipedia.org/wiki/X.509">X.509 standard</a> 标准的，也就是说他允许对第三方结构中的身份详情进行编码。例如，John Doe 在底特律 FOO 公司的会计部门工作，那么密歇根州可能就有一个数字证书包含 <code class="docutils literal notranslate"><span class="pre">SUBJECT</span></code> 属性，其值为下：<code class="docutils literal notranslate"><span class="pre">C=US,</span> <span class="pre">ST=Michigan,</span> <span class="pre">L=Detroit,</span> <span class="pre">O=FOO</span> <span class="pre">Corporation,</span> <span class="pre">OU=Accounting,</span> <span class="pre">CN=John</span> <span class="pre">Doe</span> <span class="pre">/UID=123456</span></code>。John 的证书跟他的身份证很相似 — 它可以提供关键的信息来证明 John 是 John。除了 <code class="docutils literal notranslate"><span class="pre">SUBJECT</span></code> 外，X.509 标准里还有很多别的属性，先让我们来集中关心下图的信息吧。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.8.png" /></p>
+<p>这个数字证书描述了名叫 Mary 的当事人。Mary 是该证书的主语，突出显示的 SUBJECT 文本显示了关于 Mary 的关键事实。如你所见，证书里还有很多别的属性。最重要的是，约翰的公共密钥展示在他的证书中，而他的私人密钥却不是，这个签名密钥必须保密。</p>
+<p>需要注意的是，Mary 的所有属性都可以使用称为加密的数学技术（字面意义上的“秘密写作”）进行记录，以防证书被篡改将使证书无效。只要对方信任证书颁发者（称为证书颁发机构（CA）），Mary 就可以向他人展示其证书以证明其身份。只要 CA 保证某些密码信息安全（意思是它自己的私人签名密钥），任何阅读证书的人都可以确定有关约翰的信息没有被篡改 - 它总是具有 Mary 的那些特定属性。将 Mary 的 X.509 证书视为无法更改的数字身份证。</p>
+</div>
+<div class="section" id="authentication-public-keys-and-private-keys">
+<span id="authentication-public-keys-and-private-keys"></span><h2>验证 &amp; 公匙 &amp; 阴匙（Authentication &amp; Public keys and Private Keys）<a class="headerlink" href="#authentication-public-keys-and-private-keys" title="Permalink to this headline">¶</a></h2>
+<p>验证跟消息完整性在安全通信里是非常重要的概念。身份验证要求交换消息的各方可以确定创建特定消息的对方。完整性要求消息在传输过程中不被修改。例如，你可能想要确保你正在与真正的John Doe进行沟通，而不是假冒者。或者换句话来说，如果 John 给你发了一条消息，你可能想确保它在传输过程中没有被其他人篡改。</p>
+<p>传统的认证机制依赖数字签名机制，顾名思义，允许一方对其消息进行数字签名。数字签名还保证签名消息的完整性。</p>
+<p>从技术上讲，数字签名机制要求每个参与方拥有两个密码连接的密钥：一个是广泛使用的公钥当做认证人，以及用于在消息上产生数字签名的私钥。数字签名消息的收件人可以通过检查发送人公匙下的附加签名是否有效来验证收到消息来源的可靠性和完整性。</p>
+<p>阴钥和相应公钥之间的唯一性是使安全通信成为可能的关键魔法。唯一性是指私钥可用于产生只有相应的公钥才能匹配的签名消息，并且仅在相同的消息上。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.9.png" /></p>
+<p>在上面的例子中，为了验证他的消息，Marry 使用他的私钥在消息上产生一个签名，然后他将该消息附加到消息上。任何使用John的公钥验证签名信息的人都可以验证签名。</p>
+</div>
+<div class="section" id="certificate-authorities">
+<span id="certificate-authorities"></span><h2>证书颁发机构（Certificate Authorities）<a class="headerlink" href="#certificate-authorities" title="Permalink to this headline">¶</a></h2>
+<p>正如您所看到的，通过由系统信任的权威机构为其发布的数字身份，参与者可以参与区块链网络中的角色或节点。在大多数情况下，数字身份（或简称身份）具有符合 X.509 标准的加密验证数字证书的形式，并由证书颁发机构（CA）。
+CA 是互联网安全协议的常见组成部分，您可能听说过一些比较流行的机构：Symantec（最初是Verisign），GeoTrust，DigiCert，GoDaddy 和 Comodo 等等。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.11.png" /></p>
+<p>证书颁发机构向不同参与者分发证书。这些证书由 CA 进行数字签名（即使用 CA 的私钥），并将实际参与者与其公钥绑定在一起，并且可选地附带一些可理解的属性。显然，如果信任 CA（并且知道它的公钥），它可以（通过验证 CA 在参与者证书上的签名）相信特定参与者是与其证书中的公钥相关联的，并拥有一些其他的属性。至关重要的证书可以广泛传播，因为它们既不包含参与者私钥也不包含 CA 私钥。因此，它们可以充当认证来自不同参与者消息的角色。</p>
+<p>事实上，CA本身也有一个证书，可以广泛获得。这允许由 CA 颁发的证书参与者通过检查 CA 证书（阴匙）来验证对方是合法的。</p>
+<p>在区块链设置中，每个想要与网络互动的参与者都需要一个身份。在这种情况下，您可以选择使用一个或多个 CA 来给参与者颁发数字证书。这是 CA 为组织参与者提供可验证数字身份的基础。</p>
+<div class="section" id="ca-ca-root-cas-intermediate-cas-and-chains-of-trust">
+<span id="ca-ca-root-cas-intermediate-cas-and-chains-of-trust"></span><h3>根 CA，中间 CA 和信任链（Root CAs, Intermediate CAs and Chains of Trust）<a class="headerlink" href="#ca-ca-root-cas-intermediate-cas-and-chains-of-trust" title="Permalink to this headline">¶</a></h3>
+<p>CA 有两种：根 CA 和中间 CA。由于根 CA（Symantec，Geotrust等）必须将数以亿计的证书安全地分发给互联网用户，因此将此过程分散到所谓的中间 CA 中是有道理的。这些中间 CA 的证书可以是由根 CA 颁发的，也可以是另一中间机构颁发的，这样链中的任何 CA 颁发的证书相互间就形成了一个“信任链”。这种追溯根 CA 的功能不仅可以让 CA 的功能在提供安全性的同时进行扩展 — 使消费证书的组织可以放心地使用中间CA — 它限制了根 CA 的使用程度，如果其受到影响，它会危及整个信任链。反而言之，如果中间 CA 受到影响，则危害程度要小得多。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.1.png" /></p>
+<p>信任链建立在根 CA 及 一堆中间 CA 之上，只要颁发证书的 中间 CA 来源于根 CA 或受根 CA 信任的中间 CA。中间 CA 在跨多组织颁发证书时提供了巨大的灵活性，这对于建立可授权的区块链系统非常有用。
+例如，您会看到不同的组织可能使用不同的根 CA 或不同中间的 CA 但却有着相同的根CA — 这真的取决于网络的需求。</p>
+</div>
+<div class="section" id="fabric-ca">
+<span id="fabric-ca"></span><h3>Fabric CA<a class="headerlink" href="#fabric-ca" title="Permalink to this headline">¶</a></h3>
+<p>正是因为 CA 非常重要，Fabric 提供了一个内置的 CA 组件，允许您在您的区块链网络中创建 CA。这个组件 — 被称为 <strong>fabric-ca</strong>，是一个私有根 CA 提供者，能够管理具有 X.509 证书形式的 Fabric 参与者的数字身份。由于 Fabric-CA 是定制 CA，为的是满足 Fabric 的根 CA 需求，因此它本身无法提供用于浏览器中的一般/自动使用的 SSL 证书。然而，由于必须要用 CA 来管理身份（即使在测试环境中），fabric-ca 可以用来提供和管理 ca。使用公共/商业根或中间CA来提供身份证明也是可以的并合适的。</p>
+<p>如果你你 fabric-ca 感兴趣的话，可以通过 <a class="reference external" href="http://hyperledger-fabric-ca.readthedocs.io/en/latest/">CA 文档章节</a> 来了解更多。</p>
+</div>
+</div>
+<div class="section" id="certificate-revocation-lists">
+<span id="certificate-revocation-lists"></span><h2>证书废弃列表（Certificate Revocation Lists）<a class="headerlink" href="#certificate-revocation-lists" title="Permalink to this headline">¶</a></h2>
+<p>证书废弃列表（CRL）很容易理解 - 它只是一个证书的引用列表，因一个或多个的原因而被 CA 废弃。如果您回想文章开头的商店场景，CRL 就像一张不被支持的信用卡列表。</p>
+<p>当第三方想验证另一方的身份时，它首先检查颁发 CA 的 CRL，以确保其证书没有被吊销。验证者不是非得去检查 CRL，但是如果他们不这样做，他们就会冒着接受不明身份的风险。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/identity.diagram.12.png" /></p>
+<p>使用 CRL 去确保证书仍然有效。如果假冒者试图将无效数字证书传递给验证方，可以首先检查颁发CA的CRL，以确保其未被列为不再有效。</p>
+<p>请注意，被吊销的证书与证书过期不是一回事。已吊销的证书可能没有过期 — 它们通过其他任何方式表明其是完全有效的证书。这与过期的驾驶执照和吊销的驾驶执照之间的区别类似。更多的关于 CRL 的细节，请<a class="reference external" href="https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#generating-a-crl-certificate-revocation-list">点击</a>。</p>
+<p>现在您已经看到 PKI 如何通过信任链提供可验证的身份，下一步就是了解如何使用这些身份来表示区块链网络的可信任成员。这就是会员服务提供商（MSP）的作用 —— <strong>它会识别区块链网络中的组织成员</strong>。</p>
+<p>要了解更多关于成员身份的信息，请查看关于 <a class="reference external" href="http://hyperledger-fabric.readthedocs.io/en/latest/membership/membership.html">MSP</a> 的概念性文档。</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leslie.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hyperledger Fabric Model &mdash; Hyperledger Fabric 中文文档  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Hyperledger Fabric 中文文档  documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Hyperledger Fabric 中文文档
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Hyperledger Fabric Model</a><ul>
+<li><a class="reference internal" href="#assets">资产（Assets）</a></li>
+<li><a class="reference internal" href="#chaincode">Chaincode</a></li>
+<li><a class="reference internal" href="#ledger-features">账本功能（Ledger Features）</a></li>
+<li><a class="reference internal" href="#privacy-through-channels">私密频道（Privacy through Channels）</a></li>
+<li><a class="reference internal" href="#security-membership-services">安全性 &amp; 会员服务（Security &amp; Membership Services）</a></li>
+<li><a class="reference internal" href="#consensus">共识（Consensus）</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hyperledger Fabric 中文文档</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Hyperledger Fabric Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Model.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hyperledger-fabric-model">
+<span id="hyperledger-fabric-model"></span><h1>Hyperledger Fabric Model<a class="headerlink" href="#hyperledger-fabric-model" title="Permalink to this headline">¶</a></h1>
+<p>本节将讲述 Hyperledger Fabric 中的关键设计特性，它是如何实现全面的，可定制化的企业级区块链解决方案：</p>
+<ul class="simple">
+<li>资产（Assets）- 资产定义能够在网络上交换几乎所有具有货币价值的东西，就好像现实生活中的食品、古董车、货币期货一样。</li>
+<li>Chaincode - Chaincode 的执行与事务排序是分开的，它能够控制不同节点类型的所需信任级别和验证级别，并保障了网络可伸缩性和性能。</li>
+<li>账本功能（Ledger Features）- 这种不可修改的、分布式的账本编码了所有的频道（channel）的历史交易记录，并且还包含了类似 SQL 查询功能，来帮助管理员高效的过滤数据和事实证明（数据是不会说谎的）。</li>
+<li>私密频道（Privacy through Channels）- 如果存在商业竞争以及监管的行业在通用的区块链网络上运行的话，就使得网络必须提供具有高度隐私和机密性的多边交易，Channel 就是为此而生。</li>
+<li>安全 &amp; 会员服务（Security &amp; Membership Services）- 会员授权系统提供了一个可信任的区块链网络，参与者知道所有的交易都可以被授权的监管机构和审计师检测和追踪。</li>
+<li>共识（Consensus）- 独特的共识算法可以实现企业所需的灵活性和可扩展性。</li>
+</ul>
+<div class="section" id="assets">
+<span id="assets"></span><h2>资产（Assets）<a class="headerlink" href="#assets" title="Permalink to this headline">¶</a></h2>
+<p>资产可以从有形（不动产和硬件）到无形（合同和知识产权）。 Hyperledger Fabric 提供了使用 chaincode 事务修改资产的功能。</p>
+<p>资产在 Hyperledger Fabric 中被表示为键值对的集合，资产状态更改记录为 Channel 分类帐中的事务。资产可以用二进制或 JSON 格式表示。</p>
+<p>在 Hyperledger Fabric 中，你可以使用 Hyperledger Composer 工具来轻松定义和使用资产。</p>
+</div>
+<div class="section" id="chaincode">
+<span id="chaincode"></span><h2>Chaincode<a class="headerlink" href="#chaincode" title="Permalink to this headline">¶</a></h2>
+<p>Chaincode 是定义一个或多个资产的软件，以及用于修改资产的交易指令（类似智能合约）。换句话说，其实就是商业逻辑。chaincode 定义了一系列的规则来读取过滤键值对或者其他数据状态信息，它是在开始交易时初始化的，一旦收到指令会在当前最新账本状态下执行相关代码。chaincode 执行的结果将是键值对（key - value）对象信息，它将会提交到网络中，并被网络中其他的对等节点（peer node）所同步。</p>
+</div>
+<div class="section" id="ledger-features">
+<span id="ledger-features"></span><h2>账本功能（Ledger Features）<a class="headerlink" href="#ledger-features" title="Permalink to this headline">¶</a></h2>
+<p>在 fabric 中，账本是有序的、无法篡改的包含所有交易状态记录的集合。状态转换可以由网络参与者调用 chaincode 代码而改变，每笔交易都会生成一组资产键值对（key - value），并将其作为创建，更新或删除提交给账本。</p>
+<p>账本由区块链（’链’）组成，以便将不可变的、有序的记录存储在块中，就好像一个用于维护当前结构状态的状态数据库（合约中包含各种状态）。 每个频道（channel）都有一个账本。每个频道下的对等节点（peer）都会维护一份复制的账本。</p>
+<ul class="simple">
+<li>使用基于 key 的查找、范围查询和组合键查询来查询和更新账本</li>
+<li>可以用多种查询语言做只读查询（如果使用CouchDB作为状态数据库）</li>
+<li>只读历史记录查询 - 使用 key 来查询历史记录，以此来实现数据查询方案</li>
+<li>交易是由 chaincode 通过 key/value 写入跟读取的方式构成</li>
+<li>交易是通过有顺序的排列放入区块中，并且会分发给频道中的其他节点</li>
+<li>对等节点（peers）会再次校验该事务并执行相关流程</li>
+<li>在附加块之前，节点会执行版本检查机制以确保 chaincode 在读取资产期间，资产状态未发生变化</li>
+<li>交易一旦被验证并提交后是无法更改的</li>
+<li>在频道账本中包含了一个配置块（configuration block），里面有政策定义、访问控制列表和其他相关信息</li>
+<li>频道包含会员服务提供商实例，允许从不同的授权成员发送加密资料</li>
+</ul>
+<p>查看 Ledger 章节，深入了解数据库，存储结构和“查询能力”。</p>
+</div>
+<div class="section" id="privacy-through-channels">
+<span id="privacy-through-channels"></span><h2>私密频道（Privacy through Channels）<a class="headerlink" href="#privacy-through-channels" title="Permalink to this headline">¶</a></h2>
+<p>Hyperledger Fabric 在每个频道都使用了不可篡改账本，同时，chaincode 也能操作修改当前资产状态（例如更新 key/value 键值对）。账本存在于频道范围内 - 也可以在整个网络上共享（假设每个参与者都在共同频道上运作） - 或者也可以将其私有化，包含特定的一组参与者。</p>
+<p>在后一种场景下，这些参与者将创建一个单独的频道，从而隔离其交易和账本信息。为了解决想要缩小信息透明度和隐私之间差距的场景，chaincode 只能安装在需要访问资产状态的对等节点上，来执行读取和写入（换句话说，如果节点上 chaincode 未被安装，那么它将无法正确地与账本连接）。</p>
+<p>为了进一步混淆数据（隐私性），可以在事务发送到订购服务者之前，或是将块附加到账本之前，使用常用的加密算法（如AES）对 chaincode 中的值进行加密（部分或全部）。一旦加密数据写入了账本中，它就只能由拥有阴私的用户解密。关于更多 chaincode 加密相关的信息，可以移步到 Chaincode for Developers 章节。</p>
+</div>
+<div class="section" id="security-membership-services">
+<span id="security-membership-services"></span><h2>安全性 &amp; 会员服务（Security &amp; Membership Services）<a class="headerlink" href="#security-membership-services" title="Permalink to this headline">¶</a></h2>
+<p>在 Hyperledger Fabric 交易网络中，所有的参与者身份都是已知的。公钥用于生成组织、网络组件、终端用户、客户端应用程序所需的加密证书。因此，数据访问控制可以在更广泛的网络和频道级别上进行操纵和管理。
+Hyperledger Fabric的这种“权限”概念，再加上频道的存在，有助于解决高度关注隐私和机密性的场景。</p>
+</div>
+<div class="section" id="consensus">
+<span id="consensus"></span><h2>共识（Consensus）<a class="headerlink" href="#consensus" title="Permalink to this headline">¶</a></h2>
+<p>在分布式账本技术中，共识似乎就象征着特定算法，单一功能。然而，共识不仅包括就交易顺序需要达成一致，在 Hyperledger Fabric 中，共识需要经交易提出，交易被认可，到排序，确认和提交。简而言之，共识被定义为对包含区块的一组交易的正确性进行全面验证。</p>
+<p>当区块交易的顺序和结果都通过检查时才能达成共识。这些步骤是在交易的生命周期中进行的，并且包括使用政策来规定哪些特定成员必须认可某个交易类别，system chaincode 会确保这些策略得到执行和维护。在写入账本之前，对等节点（peer node）将使用这些 system chaincode 来确保有足够的认可，并且它们来源于正确的实体。在任何包含交易的块被追加到账本之前，将会进行版本检查。此最终检查可防止双重支出操作和消除其他可能危及数据完整性的威胁，并允许针对非静态变量执行功能。</p>
+<p>除了多重确认，有效性和版本检查之外，还有交易流程各个阶段上进行的身份验证。访问控制列表在网络的分层结构上实现（订购服务会下发到频道），并且承载的数据会被重复签名，通过不同的架构组件来验证交易请求合法性。总而言之，共识不仅限于对交易排序，而是从交易提出到写入账本的交易过程中，持续不断的检测机制。</p>
+<p>可以通过交易流程（Transaction Flow）图表来查看共识可视化的表述。</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leslie.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

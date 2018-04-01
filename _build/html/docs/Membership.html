@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Membership &mdash; Hyperledger Fabric 中文文档  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Hyperledger Fabric 中文文档  documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Hyperledger Fabric 中文文档
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="KeyConcept.html">核心概念</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Fabric 介绍</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hyperledger Fabric 中文文档</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Membership</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/docs/Membership.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="membership">
+<span id="membership"></span><h1>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h1>
+<p>如果你已经查看了身份系统章节（Identity），你已经了解了 PKI 是如何在信任链中提供可验证的身份的。现在让我们看看这些身份如何用来表示区块链网络的可信任成员。</p>
+<p>这就是会员服务提供商（MSP）的作用 — 它识别哪些根 CA 和中间 CA 被信任以此来定义信任域的中成员，例如一个组织。通过列出其成员的身份，或者通过确定哪些 CA 有权为其成员颁发有效身份，或者，通常的做法是通过两者的组合来实现。</p>
+<p>MSP的能力不仅仅在于列出谁是网络参与者或频道成员。 MSP 可以识别参与者可能在范围内或 MSP 所代表的组织（信任域）（例如 MSP 管理员，组织细分成员）中扮演的特定角色，并为网络和频道环境中定义访问权限奠定了基础（例如频道管理员，读者，作者）。MSP的配置将通告给所有频道中相关的组织成员（以频道 MSP 的形式）。对等节点，订购者和客户也会维护本地 MSP 实例（也称为本地 MSP ），以便在通道的上下文之外验证其组织成员的消息。此外， MSP 可以识别已被吊销的身份列表（我们在身份证明章节中讨论过这一点，接下来也会讨论如何将此过程扩展到MSP）。</p>
+<p>我们稍后会详细讨论本地和频道 MSP。现在让我们来更多地讨论 MSP 的一般做法。</p>
+<div class="section" id="msp-mapping-msps-to-organizations">
+<span id="msp-mapping-msps-to-organizations"></span><h2>将MSP映射到组织（Mapping MSPs to Organizations）<a class="headerlink" href="#msp-mapping-msps-to-organizations" title="Permalink to this headline">¶</a></h2>
+<p>一个组织是一个受管理的成员集合，它可以像跨国公司那么大或亦可以像花店那么小。最重要的是组织他们是在一个 MSP 下管理其成员。请注意，这与在 X.509 证书规范中定义的组织概念不同，这点我们稍后会讨论。</p>
+<p>组织与 MSP 之间的排他性关系使得在组织之后命名 MSP 是明智的，在大多数政策配置中，您会发现这个约定。例如，组织 ORG1 可能有一个名为 ORG1-MSP 的 MSP。在某些情况下，组织可能需要多个成员组 — 例如，频道用于在组织之间执行非常不同的业务职能。在这种情况下，拥有多个 MSP 并相应地命名它们是有意义的，例如，ORG2-MSP-NATIONAL 和 ORG2-MSP-GOVERNMENT 。这代表着在 ORG2 根信任成员下，有着名为 <code class="docutils literal notranslate"><span class="pre">NATIONAL</span></code> 的销售频道以及 <code class="docutils literal notranslate"><span class="pre">GOVERNMENT</span></code> 的监管频道。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/membership.diagram.3.png" /></p>
+<p>上图展示了组织的两种不同的 MSP 配置。第一种配置显示 MSP 和组织之间的典型关系 — 单个 MSP 定义了组织成员的列表。在第二种配置中，不同的 MSP 用于代表具有国家，国际和政府关系的不同组织团体。</p>
+</div>
+<div class="section" id="msp-organizational-units-and-msps">
+<span id="msp-organizational-units-and-msps"></span><h2>组织单元和 MSP（Organizational Units and MSPs）<a class="headerlink" href="#msp-organizational-units-and-msps" title="Permalink to this headline">¶</a></h2>
+<p>一个组织经常被分成多个组织单位（OU），每个组织单位都负责不同的事情。例如，ORG1 组织可能同时具有 ORG1-MANUFACTURING 和 ORG1-DISTRIBUTION OU 以反映这些独立的业务线。当 CA 颁发 X.509 证书时，证书中的 OU 字段将指定该身份所属的业务线。</p>
+<p>我们稍后会看到 OU 是控制区块链网络中组织成员的。例如，只有来自 ORG1-MANUFACTURING OU 的身份才能够访问某个频道，而来自 ORG1-DISTRIBUTION 的则不能。</p>
+<p>最后，它们有时也可以由联盟中的不同组织用来区分对方，虽然这好像对 OU 有点轻微滥用。在这种情况下，不同的组织为了形成信任链，使用相同的根 CA 和中间 CA ，但适当地分配 OU 域以识别每个组织的成员。我们也会看到如何配置 MSP 来实现这一点。</p>
+</div>
+<div class="section" id="msp">
+<span id="msp"></span><h2>本地以及频道 MSP<a class="headerlink" href="#msp" title="Permalink to this headline">¶</a></h2>
+<p>MSP 以两种形式出现在区块链网络中：频道配置（频道MSP），以及本地参与者的环境（local MSP）。local MSP 定义了节点（Peer 或 排序节点）和成员（使用命令行的管理员或使用 SDK 的客户端应用程序）。每个节点和用户都必须定义一个本地 MSP，因为它定义了谁在该级别和频道的上下文之外具有管理或参与权限（例如，谁是节点组织的管理员）。</p>
+<p>相反，频道 MSP 定义了频道级别的管理及参与者权限。参与频道的每个组织都必须为其定义 MSP。频道上的对等节点和订购者将在共享相同的频道 MSP 视图，并且此后能够正确辨别出频道参与者。这意味着如果一个组织希望加入某个频道，那么需要整合该组织下的成员 MSP 信任链包含在渠道配置中。否则来自该组织身份的交易将被拒绝。</p>
+<p>本地和频道 MSP 之间的主要区别不在于它们的功能，而在于它们的作用范围。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/membership.diagram.4.png" /></p>
+<p><em>本地和渠道 MSP。每个对等节点的信任域（例如组织）由对等节点的本地 MSP（例如 ORG1 或 ORG2）定义。组织在频道中的表示通过将组织的 MSP 包含在频道中来实现。例如，该图的频道由 ORG1 和 ORG2 管理。类似的原则适用于网络，订购者和用户，但为简单起见，这里没有显示。</em></p>
+<p>本地 MSP 仅在其应用的节点或用户的文件系统上定义。因此，从物理和逻辑角度上来说，每个节点或用户只有一个本地 MSP。但是，由于频道 MSP 可用于频道中的所有节点，因此它们只会在频道配置中逻辑性的定义一次。此外，频道 MSP 会通过共识算法在频道中的每个节点的文件系统上实例化并保持同步。因此，虽然每个节点的本地文件系统上存在频道 MSP 的副本，但逻辑上，频道 MSP 是由频道或网络维护的。</p>
+<p>您可能会发现，通过查看区块链管理员安装并实例化智能合约时发生的事情，对了解本地和频道 MSP 的使用方式很有帮助，如上图所示。</p>
+<p>管理员 B 通过 <code class="docutils literal notranslate"><span class="pre">RCA1</span></code> 办法的身份去连接节点，并存储在本地 MSP 中。当 B 试图在节点上安装智能合约的时候， 节点会检查本地 MSP， <code class="docutils literal notranslate"><span class="pre">ORG1-MSP</span></code>,去证实 B 是否真的是 <code class="docutils literal notranslate"><span class="pre">ORG1</span></code> 里的成员。成功验证后将允许运行安装命令。接下来，B 希望在频道上实例化智能合约。因为这是频道级别的操作，所以必须频道中的所有节点都同意才行。因此，在提交实例化命令之前，频道中的节点必须自行检查 MSP。</p>
+<p>大家可以观察到，频道 MSP 就像频道本身一样是一个逻辑结构。它只有在频道节点里的本地文件系统实例化之后，才会有真正的实体，并且能够进行管理。</p>
+</div>
+<div class="section" id="msp">
+<span id="id1"></span><h2>MSP 等级<a class="headerlink" href="#msp" title="Permalink to this headline">¶</a></h2>
+<p>频道与本地 MSP 之间的分层反映了组织管理本地资源的需求，如对等或排序者节点及其频道资源（例如在频道或网络级别运营的账本，智能合约和联盟）。将这些 MSP 视为处于不同级别是有帮助的，高级别 MSP 处于与网络管理有关问题，而较低级别的 MSP 处理私有身份资源管理。MSP在每个管理级别都是强制性的 - 它们必须为网络，频道，对等节点，共识节点和用户定义。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/membership.diagram.2.png" /></p>
+<p><em>MSP 级别。对等和订购者的 MSP 是本地的，而频道的 MSP（包括网络配置频道）在该频道的所有参与者之间共享。在此图中，网络配置频道由 ORG1 管理，但另一个应用程序频道可由 ORG1 和 ORG2 管理。peer 节点是 ORG2 的成员并由其管理着，而 ORG1 管理着 orderer 节点。ORG1 信任来自 RCA1 颁发的身份，而 ORG2 信任来自 RCA2 颁发的身份。请注意，这些是管理身份，反映了谁可以管理这些组件。所以当 ORG1 管理网络时，ORG2.MSP 也可以存在于网络定义中。</em></p>
+<ul class="simple">
+<li>网络 MSP（Network MSP）：网络配置 — 通过定义参与者组织 MSP 以及这些成员中哪些成员有权执行管理任务（例如创建频道）来定义网络中的成员。</li>
+<li>频道 MSP（Channel MSP）：频道维护其成员的 MSP 是非常重要的。频道提供了一组特定的组织之间的私人通信，这些组织又对其进行管理控制。在该频道的 MSP 上下文中解释频道政策定义了谁能够参与频道上的某些操作，例如新增组织，或实例化 chaincode 。请注意，管理频道的权限与管理网络配置频道（或任何其他频道）的权限之间没有必然的关系。管理权限存在于正在管理的范围内（除非规则另有覆盖 - 请参阅下面关于 ROLE 属性的讨论）。</li>
+<li>对等 MSP（Peer MSP）：此本地 MSP 在每个 Peer 的文件系统上定义，并且每个 Peer 都有一个MSP实例。从概念上讲，它执行的功能与频道 MSP 完全相同，限制条件是它仅适用于定义它的 Peer 节点中。一个例子是，如果要在 Peer 节点安装 chaincode 的话，那么这是需要经过 Peer MSP 授权评估的。</li>
+<li>Orderer MSP：就像 Peer MSP 一样， orderer MSP 也是定义在本地节点文件系统中的。同样， orderer MSP 也是被单个组织所定义，因此，仅有一个 MSP 来记录参与者或受信任的节点。</li>
+</ul>
+</div>
+<div class="section" id="msp-msp-structure">
+<span id="msp-msp-structure"></span><h2>MSP 结构（MSP Structure）<a class="headerlink" href="#msp-msp-structure" title="Permalink to this headline">¶</a></h2>
+<p>到目前为止，您已经看到 MSP 中最重要的两个要素是使用 CA 的规范来确定相应组织中的参与者或节点成员资格。但是，有更多的元素与这两个元素结合使用来帮助管理成员关系。</p>
+<p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/membership.diagram.5.png" /></p>
+<p><em>上图显示了本地 MSP 如何存储在本地文件系统中。尽管频道 MSP 的物理结构并不完全如此，但它仍然是一个不错方式来帮助了解它们。</em></p>
+<p>正如你所看到的，MSP 有九个要素。在目录结构中考虑这些元素是最简单的，其中 MSP 名称是根文件夹名称，每个子文件夹代表 MSP 配置的不同元素。</p>
+<p>让我们更详细地描述这些文件夹，看看它们为什么重要。</p>
+<ul>
+<li><p class="first">Root CAs：此文件夹包含着被根 CA 信任的代表了其 MSP 关系的 X.509 自签名证书。此 MSP 文件夹中必须至少有一个根 CA X.509 证书。</p>
+<p>这是最重要的文件夹，因为它标识所有其他证书必须来自它派生出来的CA，以便被视为相应组织的成员。</p>
+</li>
+<li><p class="first">中间CA（Intermediate CAs）：该文件夹包含组织信任的中间 CA 的 X.509 证书列表。每个证书都必须由 MSP 中的一个根 CA 签署，或者由受根 CA 信任的中间 CA 签署。</p>
+<p>直观地看到相对于相应组织结构使用中间 CA，中间 CA 可能代表组织的不同细分，或组织本身（例如，商业 CA 用于组织的身份管理）。在后一种情况下，可以使用 CA 层次结构中较低的中间 CA 来表示组织细分。在<a class="reference external" href="http://hyperledger-fabric.readthedocs.io/en/latest/msp.html">这里</a>您可以找到关于 MSP 配置最佳实践的更多信息。请注意，可能有一个没有任何中间 CA 的功能网络，在这种情况下，此文件夹将为空。</p>
+<p>与根 CA 文件夹一样，此文件夹定义了必须从中颁发证书才能被视为组织成员的 CA。</p>
+</li>
+<li><p class="first">组织单元（Organizational Units (OUs)）：它们列在 <code class="docutils literal notranslate"><span class="pre">$FABRIC_CFG_PATH/msp/config.yaml</span></code>文件中，并包含一个组织单元列表，其中的成员被认为是该 MSP 所代表的组织的一部分。当您希望将组织的成员限制为持有身份（由MSP指定的CA之一签名）且具有特定 OU 的组织时，这一点尤其有用。</p>
+<p>指定 OU 是可选的。如果未列出 OU，那么所有的身份都会是 MSP 中的一员 — 只要身份是被根 CA 或中间 CA 所颁发 — 这将会被视为组织的一员。</p>
+</li>
+<li><p class="first">管理员（Administrators）：这个文件夹中包含了组织中有管理员权限的证书。对于标准的 MSP 类型，文件夹中应该有一个或多个 X.509 标准的证书。值得注意的是，虽然某个参与者具有管理员的角色，并不意味着他们可以管理特定的资源！真正有身份权利去管理系统资源的，是被政策所决定的（policies）。例如，频道政策可能会赋予 <code class="docutils literal notranslate"><span class="pre">ORG1-MANUFACTURING</span></code> 的管理员有权添加新的组织到频道中，而 <code class="docutils literal notranslate"><span class="pre">ORG1-DISTRIBUTION</span></code> 的管理员则没有此权限。</p>
+<p>尽管 X.509 证书具有 ROLE 属性（例如，指定参与者是管理员），这也是指参与者在其组织中的角色而不是区块链网络中的角色。这与 OU 属性的用途类似，如果它已被定义 —— 指的是参与者在组织中的位置。</p>
+<p>如果频道政策允许任何组织（或特定组织）的管理员有权限执行频道功能的话，那么证书中的 <code class="docutils literal notranslate"><span class="pre">ROLE</span></code> 角色也会起效（如果是管理员角色的话）。通过这种方式，组织角色可以赋予网络角色。这在概念上类似于美国佛罗里达州颁发的驾驶执照是如何授权某人在美国的每个州开车的。</p>
+</li>
+<li><p class="first">废弃证书（Revoked Certificates）：如果参与者的身份已被撤销，则会识别有关身份的信息 — 而不是身份本身 — 保存在此文件夹中。对于基于 X.509 标准的身份来说，主体题密钥标识符（Subject Key Identifier SKI）和权限访问标识符（Authority Access Identifier AKI）的字符串对是确认该证书未被吊销的关键凭证。</p>
+<p>此列表在概念上与 CA 的证书撤销列表（CRL）相同，但它主要涉及保存的是组织废弃会员信息。因此，本地或频道 MSP 管理员可以通过更新 CRL 中的 CA 来通过广播方式快速撤销组织中的角色或节点。这个“列表清单”是可选的。它只会在证书被撤销时填充。</p>
+</li>
+<li><p class="first">节点身份（Node Identity）：该文件夹包含节点的身份，即与Keystore的内容相结合的密码材料将允许节点在发送给其频道和网络的其他参与者的消息中对其自身进行认证。如果是基于X.509的身份的话，此文件夹包含一个X.509证书。例如，这是对等方在交易提议响应中的证书，以表明对等方已经认可了它 — 随后可以在验证时根据所得到的交易的认可政策对其进行检查。</p>
+<p>该文件夹对于本地 MSP 是必需的，并且该节点必须只有一个 X.509 证书。它不用于频道MSP。</p>
+</li>
+<li><p class="first">密匙的KeyStore（KeyStore for Private Key）：该文件夹是为对等或排序节点（或客户端的本地 MSP）的本地MSP定义的，并且包含节点的签名密钥。此密钥与 Node Identity 文件夹中包含的节点身份密码匹配，并用于签署数据 — 例如签署交易建议回复，作为认可阶段的一部分。</p>
+<p>该文件夹对本地 MSP 是强制性的，并且必须包含一个私钥。很明显，访问这个文件夹只能限制当前身份，对 peer 节点有管理责任的用户。</p>
+<p>通道 MSP 的配置不包括此部分，因为通道 MSP 旨在提供纯粹的身份验证功能，而不是签署能力。</p>
+</li>
+<li><p class="first">TLS 根 CA（TLS Root CA）：此文件夹包含该组织信任的用于 TLS 通信的根 CA 的自签名X.509证书列表。TLS 通信的一个例子是对等节点需要连接到排序节点以便它可以接收账本更新。</p>
+<p>MSP TLS 信息涉及网络内的节点，即对等节点和排序节点，而不是那些使用网络的节点 — 应用程序和管理员。</p>
+<p>此文件夹中必须至少有一个TLS根CA X.509证书。</p>
+</li>
+<li><p class="first">TLS 中间 CA（TLS Intermediate CA）：此文件夹包含由此 MSP 代表的组织信任的用于 TLS 通信的列表中间CA证书 CA。当商业 CA 用于组织的 TLS 证书时，此文件夹特别有用。与成员中间 CA 类似，指定中间 TLS CA 是可选的。</p>
+<p>有关TLS的更多信息，请单击<a class="reference external" href="http://hyperledger-fabric.readthedocs.io/en/latest/enable_tls.html">此处</a>。</p>
+</li>
+</ul>
+<p>如果您已阅读此文档以及关于 Identity 的文档，您应该很好地掌握 Hyperledger Fabric 中身份和成员关系的工作方式。您已经看到 PKI 和 MSP 如何用于识别在区块链网络中合作的参与者。除了 MSP 的物理和逻辑结构分层外，您还了解了证书，公钥/私钥和信任链的工作原理。</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leslie.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
