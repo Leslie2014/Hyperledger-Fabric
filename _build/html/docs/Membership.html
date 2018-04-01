@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Membership &mdash; Hyperledger Fabric 中文文档  documentation</title>
+  <title>成员关系 &mdash; Hyperledger Fabric chinese Documention  documentation</title>
   
 
   
@@ -35,7 +35,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="Hyperledger Fabric 中文文档  documentation" href="../index.html"/> 
+    <link rel="top" title="Hyperledger Fabric chinese Documention  documentation" href="../index.html"/>
+        <link rel="up" title="核心概念" href="KeyConcept.html"/>
+        <link rel="next" title="Peers" href="Peers.html"/>
+        <link rel="prev" title="身份系统 Identity" href="Identity.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -54,7 +57,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Hyperledger Fabric 中文文档
+            <a href="../index.html" class="icon icon-home"> Hyperledger Fabric chinese Documention
           
 
           
@@ -85,9 +88,24 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="KeyConcept.html">核心概念</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Fabric 介绍</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="KeyConcept.html">核心概念</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Fabric 介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functionalities.html">Hyperledger Fabric 功能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model.html">Hyperledger Fabric Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Identity.html">身份系统 Identity</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">成员关系</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#msp-mapping-msps-to-organizations">将MSP映射到组织（Mapping MSPs to Organizations）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msp-organizational-units-and-msps">组织单元和 MSP（Organizational Units and MSPs）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msp">本地以及频道 MSP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msp">MSP 等级</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msp-msp-structure">MSP 结构（MSP Structure）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Peers.html">Peers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ledger.html">账本</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -102,7 +120,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Hyperledger Fabric 中文文档</a>
+          <a href="../index.html">Hyperledger Fabric chinese Documention</a>
         
       </nav>
 
@@ -132,7 +150,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Membership</li>
+          <li><a href="KeyConcept.html">核心概念</a> &raquo;</li>
+        
+      <li>成员关系</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,8 +171,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="membership">
-<span id="membership"></span><h1>Membership<a class="headerlink" href="#membership" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="">
+<span id="id1"></span><h1>成员关系<a class="headerlink" href="#" title="Permalink to this headline">¶</a></h1>
 <p>如果你已经查看了身份系统章节（Identity），你已经了解了 PKI 是如何在信任链中提供可验证的身份的。现在让我们看看这些身份如何用来表示区块链网络的可信任成员。</p>
 <p>这就是会员服务提供商（MSP）的作用 — 它识别哪些根 CA 和中间 CA 被信任以此来定义信任域的中成员，例如一个组织。通过列出其成员的身份，或者通过确定哪些 CA 有权为其成员颁发有效身份，或者，通常的做法是通过两者的组合来实现。</p>
 <p>MSP的能力不仅仅在于列出谁是网络参与者或频道成员。 MSP 可以识别参与者可能在范围内或 MSP 所代表的组织（信任域）（例如 MSP 管理员，组织细分成员）中扮演的特定角色，并为网络和频道环境中定义访问权限奠定了基础（例如频道管理员，读者，作者）。MSP的配置将通告给所有频道中相关的组织成员（以频道 MSP 的形式）。对等节点，订购者和客户也会维护本地 MSP 实例（也称为本地 MSP ），以便在通道的上下文之外验证其组织成员的消息。此外， MSP 可以识别已被吊销的身份列表（我们在身份证明章节中讨论过这一点，接下来也会讨论如何将此过程扩展到MSP）。</p>
@@ -183,7 +203,7 @@
 <p>大家可以观察到，频道 MSP 就像频道本身一样是一个逻辑结构。它只有在频道节点里的本地文件系统实例化之后，才会有真正的实体，并且能够进行管理。</p>
 </div>
 <div class="section" id="msp">
-<span id="id1"></span><h2>MSP 等级<a class="headerlink" href="#msp" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>MSP 等级<a class="headerlink" href="#msp" title="Permalink to this headline">¶</a></h2>
 <p>频道与本地 MSP 之间的分层反映了组织管理本地资源的需求，如对等或排序者节点及其频道资源（例如在频道或网络级别运营的账本，智能合约和联盟）。将这些 MSP 视为处于不同级别是有帮助的，高级别 MSP 处于与网络管理有关问题，而较低级别的 MSP 处理私有身份资源管理。MSP在每个管理级别都是强制性的 - 它们必须为网络，频道，对等节点，共识节点和用户定义。</p>
 <p><img alt="" src="http://hyperledger-fabric.readthedocs.io/en/latest/_images/membership.diagram.2.png" /></p>
 <p><em>MSP 级别。对等和订购者的 MSP 是本地的，而频道的 MSP（包括网络配置频道）在该频道的所有参与者之间共享。在此图中，网络配置频道由 ORG1 管理，但另一个应用程序频道可由 ORG1 和 ORG2 管理。peer 节点是 ORG2 的成员并由其管理着，而 ORG1 管理着 orderer 节点。ORG1 信任来自 RCA1 颁发的身份，而 ORG2 信任来自 RCA2 颁发的身份。请注意，这些是管理身份，反映了谁可以管理这些组件。所以当 ORG1 管理网络时，ORG2.MSP 也可以存在于网络定义中。</em></p>
@@ -245,6 +265,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Peers.html" class="btn btn-neutral float-right" title="Peers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Identity.html" class="btn btn-neutral" title="身份系统 Identity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
